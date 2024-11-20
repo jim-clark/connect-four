@@ -53,13 +53,51 @@ function handleDrop(evt) {
   const rowIdx = colArr.indexOf(null);
   // Update the board/column state
   colArr[rowIdx] = turn;
-  winner = getWinner();
+  winner = getWinner(colIdx, rowIdx);
   turn *= -1;
   render();
 }
 
-function getWinner() {
-  return null;
+function getWinner(colIdx, rowIdx) {
+  return checkVertical(colIdx, rowIdx) || checkHorizontal(colIdx, rowIdx) ||
+    checkForwardSlash(colIdx, rowIdx) || checkBackSlash(colIdx, rowIdx);
+}
+
+function checkBackSlash(colIdx, rowIdx) {
+  const numUpLeft = countNumAdjacent(colIdx, rowIdx, -1, 1);
+  const numDownRight = countNumAdjacent(colIdx, rowIdx, 1, -1);
+  return (numUpLeft + numDownRight) >= 3 ? turn : null;
+}
+
+function checkForwardSlash(colIdx, rowIdx) {
+  const numUpRight = countNumAdjacent(colIdx, rowIdx, 1, 1);
+  const numDownLeft = countNumAdjacent(colIdx, rowIdx, -1, -1);
+  return (numUpRight + numDownLeft) >= 3 ? turn : null;
+}
+
+function checkHorizontal(colIdx, rowIdx) {
+  const numLeft = countNumAdjacent(colIdx, rowIdx, -1, 0);
+  const numRight = countNumAdjacent(colIdx, rowIdx, 1, 0);
+  return (numLeft + numRight) >= 3 ? turn : null;
+}
+
+function checkVertical(colIdx, rowIdx) {
+  const numBelow = countNumAdjacent(colIdx, rowIdx, 0, -1);
+  return numBelow === 3 ? turn : null;
+}
+
+// col/rowOffset is the value to adjust the current  
+// colIdx & rowIdx by after each iteration
+function countNumAdjacent(colIdx, rowIdx, colOffset, rowOffset) {
+  let count = 0;
+  colIdx += colOffset;
+  rowIdx += rowOffset;
+  while (board[colIdx] && board[colIdx][rowIdx] === turn) {
+    count++;
+    colIdx += colOffset;
+    rowIdx += rowOffset;
+  }
+  return count;
 }
 
 // Visualize all state and other info in the DOM
