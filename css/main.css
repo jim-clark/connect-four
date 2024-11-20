@@ -41,7 +41,7 @@ h1 {
 
 #markers>div:hover {
   transform: scale(0.9);
-  transition: transform 150ms ease-in;
+  transition: all 150ms ease-in;
   border-top-color: darkgrey;
 }
 
