@@ -2,7 +2,7 @@
 const COLORS = {
   'null': 'white',
   '1': 'rebeccapurple',
-  '-1': 'orange'
+  '-1': 'lime'
 };
 
 /*----- state variables -----*/
