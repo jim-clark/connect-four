@@ -15,9 +15,10 @@ let turn;   // 1/-1 -> the player whose turn it is
 /*----- cached elements  -----*/
 const msgEl = document.querySelector('h1');
 const playAgainBtn = document.getElementById('play-again');
+const markerEls = [...document.querySelectorAll('#markers > div')];  // Convert the NodeList into an Array
 
 /*----- event listeners -----*/
-
+document.getElementById('markers').addEventListener('click', handleDrop);
 
 /*----- functions -----*/
 init();
@@ -39,6 +40,27 @@ function init() {
   ];
   winner = null;
   turn = 1;
+  render();
+}
+
+// In response to user interaction, update all impacted
+// state, then call render()
+function handleDrop(evt) {
+  // 1) Determine the index of the clicked column marker.
+  const colIdx = markerEls.indexOf(evt.target);
+  // 2) If not a valid index, do nothing(return from function).
+  if (colIdx === -1) return;
+  // 3) Create a shortcut variable to the clicked column array, e.g., `colArr`.
+  const colArr = board[colIdx];
+  // 4) Determine the index of the first available "cell" (first `null` element in `colArr`).
+  const rowIdx = colArr.indexOf(null);
+  console.log(rowIdx);
+  // 5) Update the "cell" in `colArr` with whose turn it is.
+  colArr[rowIdx] = turn;
+  // 6) Compute and update the state of the game (winner ?).
+  // 7) Update whose turn it is.
+  turn *= -1;
+  // 8) All state has been updated - call render()!
   render();
 }
 
