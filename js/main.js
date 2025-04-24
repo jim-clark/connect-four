@@ -58,10 +58,15 @@ function handleDrop(evt) {
   // 5) Update the "cell" in `colArr` with whose turn it is.
   colArr[rowIdx] = turn;
   // 6) Compute and update the state of the game (winner ?).
+  winner = getWinner();
   // 7) Update whose turn it is.
   turn *= -1;
   // 8) All state has been updated - call render()!
   render();
+}
+
+function getWinner() {
+  return null;
 }
 
 // The purpose of the render() function is to 
