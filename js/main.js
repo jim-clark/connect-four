@@ -66,7 +66,20 @@ function handleDrop(evt) {
 }
 
 function getWinner(colIdx, rowIdx) {
-  return checkVertical(colIdx, rowIdx) || checkHorizontal(colIdx, rowIdx)
+  return checkVertical(colIdx, rowIdx) || checkHorizontal(colIdx, rowIdx) ||
+    checkBackslash(colIdx, rowIdx) || checkForwardslash(colIdx, rowIdx);
+}
+
+function checkForwardslash(colIdx, rowIdx) {
+  const numLeft = countAdjacent(colIdx, rowIdx, -1, -1);
+  const numRight = countAdjacent(colIdx, rowIdx, 1, 1);
+  return numLeft + numRight >= 3 ? turn : null;
+}
+
+function checkBackslash(colIdx, rowIdx) {
+  const numLeft = countAdjacent(colIdx, rowIdx, -1, 1);
+  const numRight = countAdjacent(colIdx, rowIdx, 1, -1);
+  return numLeft + numRight >= 3 ? turn : null;
 }
 
 function checkHorizontal(colIdx, rowIdx) {
@@ -109,6 +122,10 @@ function renderControls() {
   // <conditional exp> ? <truthy exp> : <falsy exp>
   playAgainBtn.style.visibility = winner ? 'visible' : 'hidden';
   // TODO: conditionally render the markers
+  markerEls.forEach((markerEl, colIdx) => {
+    const showMarker = board[colIdx].includes(null) && !winner;
+    markerEl.style.visibility = showMarker ? 'visible' : 'hidden';
+  });
 }
 
 function renderMessage() {
