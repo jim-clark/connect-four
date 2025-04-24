@@ -41,8 +41,9 @@ h1 {
 
 #markers>div:hover {
   transform: scale(0.9);
-  transition: transform 150ms ease-in;
+  transition: all 150ms ease-in;
   border-top-color: darkgrey;
+  cursor: pointer;
 }
 
 #board {
@@ -70,4 +71,5 @@ button {
 button:hover {
   color: white;
   background-color: darkgrey;
+  cursor: pointer;
 }
