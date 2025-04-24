@@ -14,6 +14,7 @@ let turn;   // 1/-1 -> the player whose turn it is
 
 /*----- cached elements  -----*/
 const msgEl = document.querySelector('h1');
+const playAgainBtn = document.getElementById('play-again');
 
 /*----- event listeners -----*/
 
@@ -46,7 +47,14 @@ function init() {
 function render() {
   renderBoard();
   renderMessage();
-  // renderControls();
+  renderControls();
+}
+
+function renderControls() {
+  // ternary expression - use when you want to return one of two values
+  // <conditional exp> ? <truthy exp> : <falsy exp>
+  playAgainBtn.style.visibility = winner ? 'visible' : 'hidden';
+  // TODO: conditionally render the markers
 }
 
 function renderMessage() {
