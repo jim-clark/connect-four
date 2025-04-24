@@ -1,5 +1,10 @@
 /*----- constants -----*/
-
+// look-up data structure
+const COLORS = {
+  '1': 'purple',
+  '-1': 'orange',
+  'null': 'white',
+};
 
 /*----- state variables -----*/
 // Define, but do not assign to (initialize)
@@ -48,7 +53,7 @@ function renderBoard() {
   board.forEach((colArr, colIdx) => {
     colArr.forEach((cellVal, rowIdx) => {
       const cellEl = document.getElementById(`c${colIdx}r${rowIdx}`);
-      cellEl.style.backgroundColor = 'red';
+      cellEl.style.backgroundColor = COLORS[cellVal];
     });
   });
 }
