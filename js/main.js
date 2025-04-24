@@ -70,8 +70,9 @@ function getWinner(colIdx, rowIdx) {
 }
 
 function checkHorizontal(colIdx, rowIdx) {
-  const numBelow = countAdjacent(colIdx, rowIdx, 0, -1);
-  return numBelow === 3 ? turn : null;
+  const numLeft = countAdjacent(colIdx, rowIdx, -1, 0);
+  const numRight = countAdjacent(colIdx, rowIdx, 1, 0);
+  return numLeft + numRight >= 3 ? turn : null;
 }
 
 function checkVertical(colIdx, rowIdx) {
@@ -87,7 +88,7 @@ function countAdjacent(colIdx, rowIdx, colDelta, rowDelta) {
   rowIdx += rowDelta;
   // Use a while loop when you don't know
   // how many times you need to loop/iterate
-  while (board[colIdx][rowIdx] === turn) {
+  while (board[colIdx] && board[colIdx][rowIdx] === turn) {
     count++;
     colIdx += colDelta;
     rowIdx += rowDelta;
