@@ -14,12 +14,41 @@ let turn;   // 1/-1 -> the player whose turn it is
 
 
 /*----- functions -----*/
+init();
 
 // The init function's purpose is to initialize
 // all state, then call render()
 function init() {
-
+  // To visualize the mapping (connection) between
+  // the board array and the "cells"/divs in the DOM,
+  // "rotate" the board 90 degrees counter-clockwise
+  board = [
+    [null, null, null, null, null, null], // col 0
+    [null, null, null, null, null, null], // col 1
+    [null, null, null, null, null, null], // col 2
+    [null, null, null, null, null, null], // col 3
+    [null, null, null, null, null, null], // col 4
+    [null, null, null, null, null, null], // col 5
+    [null, null, null, null, null, null], // col 6
+  ];
   winner = null;
   turn = 1;
-  // render();
+  render();
+}
+
+// The purpose of the render() function is to 
+// "transfer"/visualize ALL state to/in the DOM
+function render() {
+  renderBoard();
+  // renderMessage();
+  // renderControls();
+}
+
+function renderBoard() {
+  board.forEach((colArr, colIdx) => {
+    colArr.forEach((cellVal, rowIdx) => {
+      const cellEl = document.getElementById(`c${colIdx}r${rowIdx}`);
+      cellEl.style.backgroundColor = 'red';
+    });
+  });
 }
