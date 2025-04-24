@@ -13,7 +13,7 @@ let winner; // null -> no winner or tie, game is in progress; 1/-1 -> the player
 let turn;   // 1/-1 -> the player whose turn it is
 
 /*----- cached elements  -----*/
-
+const msgEl = document.querySelector('h1');
 
 /*----- event listeners -----*/
 
@@ -45,8 +45,12 @@ function init() {
 // "transfer"/visualize ALL state to/in the DOM
 function render() {
   renderBoard();
-  // renderMessage();
+  renderMessage();
   // renderControls();
+}
+
+function renderMessage() {
+  msgEl.innerHTML = `<span>${COLORS[turn]}</span>`;
 }
 
 function renderBoard() {
