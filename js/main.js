@@ -67,7 +67,15 @@ function handleDrop(evt) {
 
 function getWinner(colIdx, rowIdx) {
   return checkVertical(colIdx, rowIdx) || checkHorizontal(colIdx, rowIdx) ||
-    checkBackslash(colIdx, rowIdx) || checkForwardslash(colIdx, rowIdx);
+    checkBackslash(colIdx, rowIdx) || checkForwardslash(colIdx, rowIdx) ||
+    checkTie();
+}
+
+function checkTie() {
+  for (let colArr of board) {
+    if (colArr.includes(null)) return null;
+  }
+  return 'Tie';
 }
 
 function checkForwardslash(colIdx, rowIdx) {
