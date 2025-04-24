@@ -19,6 +19,7 @@ const markerEls = [...document.querySelectorAll('#markers > div')];  // Convert 
 
 /*----- event listeners -----*/
 document.getElementById('markers').addEventListener('click', handleDrop);
+playAgainBtn.addEventListener('click', init);
 
 /*----- functions -----*/
 init();
@@ -54,19 +55,44 @@ function handleDrop(evt) {
   const colArr = board[colIdx];
   // 4) Determine the index of the first available "cell" (first `null` element in `colArr`).
   const rowIdx = colArr.indexOf(null);
-  console.log(rowIdx);
   // 5) Update the "cell" in `colArr` with whose turn it is.
   colArr[rowIdx] = turn;
   // 6) Compute and update the state of the game (winner ?).
-  winner = getWinner();
+  winner = getWinner(colIdx, rowIdx);
   // 7) Update whose turn it is.
   turn *= -1;
   // 8) All state has been updated - call render()!
   render();
 }
 
-function getWinner() {
-  return null;
+function getWinner(colIdx, rowIdx) {
+  return checkVertical(colIdx, rowIdx) || checkHorizontal(colIdx, rowIdx)
+}
+
+function checkHorizontal(colIdx, rowIdx) {
+  const numBelow = countAdjacent(colIdx, rowIdx, 0, -1);
+  return numBelow === 3 ? turn : null;
+}
+
+function checkVertical(colIdx, rowIdx) {
+  const numBelow = countAdjacent(colIdx, rowIdx, 0, -1);
+  return numBelow === 3 ? turn : null;
+}
+
+// col/rowDelta represents the value that col/rowIdx
+// will change by after each iteration
+function countAdjacent(colIdx, rowIdx, colDelta, rowDelta) {
+  let count = 0;
+  colIdx += colDelta;
+  rowIdx += rowDelta;
+  // Use a while loop when you don't know
+  // how many times you need to loop/iterate
+  while (board[colIdx][rowIdx] === turn) {
+    count++;
+    colIdx += colDelta;
+    rowIdx += rowDelta;
+  }
+  return count;
 }
 
 // The purpose of the render() function is to 
