@@ -2,7 +2,7 @@
 // look-up data structure
 const COLORS = {
   '1': 'purple',
-  '-1': 'orange',
+  '-1': 'lime',
   'null': 'white',
 };
 
